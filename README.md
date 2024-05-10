@@ -31,14 +31,14 @@ jobs:
         id: astradb
         with:
           token: ${{ secrets.ASTRA_DB_TOKEN }}
-          name: my-database
           region: us-east-2
           cloud: aws
       - run: |
           echo "Database ID is ${{ steps.astradb.outputs.id }}"
           echo "Database API endpoint is ${{ steps.astradb.outputs.api-endpoint }}"
       - uses: nicoloboschi/cleanup-astradb@v1
+        if: ${{ always() }}
         with:
           token: ${{ secrets.ASTRA_DB_TOKEN }}
-          name: my-database
+          name: ${{ steps.astra.outputs.name }}
 ```
