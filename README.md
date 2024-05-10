@@ -27,7 +27,8 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v3
-      - uses: nicoloboschi/setup-astradb@v1
+      - name: Setup AstraDB database
+        uses: nicoloboschi/setup-astradb@v1
         id: astradb
         with:
           token: ${{ secrets.ASTRA_DB_TOKEN }}
@@ -36,7 +37,8 @@ jobs:
       - run: |
           echo "Database ID is ${{ steps.astradb.outputs.id }}"
           echo "Database API endpoint is ${{ steps.astradb.outputs.api-endpoint }}"
-      - uses: nicoloboschi/cleanup-astradb@v1
+      - name: Cleanup AstraDB database
+        uses: nicoloboschi/cleanup-astradb@v1
         if: ${{ always() }}
         with:
           token: ${{ secrets.ASTRA_DB_TOKEN }}
