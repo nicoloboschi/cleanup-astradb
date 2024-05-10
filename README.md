@@ -3,6 +3,10 @@
 This action deletes a [DataStax AstraDB](https://www.datastax.com/products/datastax-astra) database.
 To create a database, use the `@nicoloboschi/setup-astradb` [action](https://github.com/nicoloboschi/setup-astradb).
 
+Related actions:
+- `@nicoloboschi/setup-astradb` [action](https://github.com/nicoloboschi/setup-astradb): Creates a AstraDB database.
+- `@nicoloboschi/cleanup-astradb-env` [action](https://github.com/nicoloboschi/cleanup-astradb-env): Delete databases based on their last usage time.
+
 ## Action Inputs
 
 | Input name | Description                                                                               	                     | Required 	 | Default Value |
