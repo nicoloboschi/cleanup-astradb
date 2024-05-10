@@ -1,0 +1,37 @@
+name: Astra DB Cleanup
+description: Delete a database in Datastax Astra DB
+
+inputs:
+  token:
+    required: true
+    description: "Astra DB application token. It needs to have enough permissions to create/delete databases in the organization."
+  name:
+    required: true
+    description: "Name of the database to delete."
+  env:
+    description: "Astra DB environment. (ENV, PROD)"
+    default: "PROD"
+  wait:
+    description: "Whether to wait for the database to be deleted or not."
+    default: "true"
+runs:
+  using: "composite"
+  steps:
+    - name: Delete database
+      shell: bash
+      env:
+        TERM: linux
+      run: |
+        (curl -Ls "https://dtsx.io/get-astra-cli" | bash) || true
+        wait_param="--async"
+        if [ "${{ inputs.wait }}" == "true" ]; then
+          wait_param=""
+        fi
+        /home/runner/.astra/cli/astra db delete "${{ inputs.name }}" --token ${{ inputs.token }} --env "${{ inputs.env }}" $wait_param
+
+
+
+
+branding:
+  icon: 'database'
+  color: 'orange'
